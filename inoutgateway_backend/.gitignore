@@ -1,0 +1,44 @@
+# Node.js dependencies
+/node_modules/
+
+# TypeScript build directory
+/dist/
+
+# TypeScript cache
+/.tsbuildinfo
+
+# Logs
+*.log
+
+# Dependency directories
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+
+# VSCode settings
+.vscode/
+
+# macOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+
+# IntelliJ IDEA project files
+.idea/
+
+# Optional: Ignore the build folder if you don't want to track the JS output
+# /build/
+
+# Ignore coverage reports (e.g., from testing frameworks)
+coverage/
+
+# Ignore package-lock.json if you're using yarn (Optional)
+# package-lock.json
+
+# Ignore test or coverage reports
+*.test.ts
+*.spec.ts
