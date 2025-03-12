@@ -5,6 +5,7 @@ export interface AppConfig {
   port: number;
   logsFolder: string;
   publicFolder: string;
+  db: string;
 }
 
 const defaultConfig: AppConfig = {
@@ -12,6 +13,7 @@ const defaultConfig: AppConfig = {
   port: 5555,
   logsFolder: "./logs",
   publicFolder: "./www",
+  db: "backend.fb"
 };
 
 var config: AppConfig = defaultConfig;
