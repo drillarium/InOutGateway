@@ -1,7 +1,0 @@
-{
-  "logsFolder": "./logs",
-  "interface": "0.0.0.0",
-  "port": 5555,
-  "publicFolder": "./www",
-  "db": "backend.db"
-}
