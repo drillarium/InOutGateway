@@ -44,9 +44,21 @@
     <ClCompile Include="src\version_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\process.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jsoneditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="src\launcher.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\process.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\jsoneditor.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -70,6 +82,12 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="src\webserver.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\process.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\jsoneditor.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

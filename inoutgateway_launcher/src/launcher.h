@@ -22,6 +22,10 @@ private slots:
   void confirmExit();
   void restoreWindow();
   void onTrayIconActivated(QSystemTrayIcon::ActivationReason _reason);
+  void updateCPUUsage();
+  void updateMemUsage();
+  void updateGPUUsage();
+  void updateDiskUsage();
 
 protected:
   QSystemTrayIcon *trayIcon_ = nullptr;
