@@ -26,6 +26,12 @@ private slots:
   void updateMemUsage();
   void updateGPUUsage();
   void updateDiskUsage();
+  void executeTask();
+  void endTask();
+  void refreshEngines();
+  void engineRunning(int _id);
+  void engineStopped(int _id);
+  void updateEndTaskButtonStatus();
 
 protected:
   QSystemTrayIcon *trayIcon_ = nullptr;

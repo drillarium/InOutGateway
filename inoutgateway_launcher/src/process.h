@@ -8,8 +8,13 @@ class ProcessWidget : public QWidget
   Q_OBJECT
 
 public:
-  ProcessWidget(QWidget *_parent = nullptr);
+  ProcessWidget(int _id, QWidget *_parent = nullptr);
   ~ProcessWidget();
+
+  int id() { return id_; }
+
+protected:
+  int id_ = -1;
 
 private:
   Ui::processClass ui;

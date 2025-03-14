@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>JSONEditorClass</class>
- <widget class="QWidget" name="JSONEditorClass">
+ <widget class="QDialog" name="JSONEditorClass">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QPlainTextEdit" name="jsonTextEdit"/>
+    <widget class="QTextEdit" name="jsonTextEdit"/>
    </item>
    <item>
     <widget class="QWidget" name="horizontalWidget" native="true">
@@ -54,5 +54,41 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>cancelButton</sender>
+   <signal>clicked()</signal>
+   <receiver>JSONEditorClass</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>544</x>
+     <y>369</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>199</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>acceptButton</sender>
+   <signal>clicked()</signal>
+   <receiver>JSONEditorClass</receiver>
+   <slot>validateJson()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>463</x>
+     <y>369</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>199</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>validateJson()</slot>
+ </slots>
 </ui>

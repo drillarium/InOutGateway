@@ -50,6 +50,12 @@
     <ClCompile Include="src\jsoneditor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\processmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engineprocess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="src\launcher.ui">
@@ -88,6 +94,12 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="src\jsoneditor.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\processmanager.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\engineprocess.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

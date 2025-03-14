@@ -95,10 +95,12 @@
   <ItemGroup>
     <ClCompile Include="src\config_manager.cpp" />
     <ClCompile Include="src\custom_message_handler.cpp" />
+    <ClCompile Include="src\engineprocess.cpp" />
     <ClCompile Include="src\jsoneditor.cpp" />
     <ClCompile Include="src\launcher.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\process.cpp" />
+    <ClCompile Include="src\processmanager.cpp" />
     <ClCompile Include="src\version_manager.cpp" />
     <ClCompile Include="src\webserver.cpp" />
     <QtUic Include="src\jsoneditor.ui" />
@@ -126,6 +128,8 @@
     <ClInclude Include="src\custom_message_handler.h" />
     <QtMoc Include="src\process.h" />
     <QtMoc Include="src\jsoneditor.h" />
+    <QtMoc Include="src\processmanager.h" />
+    <QtMoc Include="src\engineprocess.h" />
     <ClInclude Include="src\version_manager.h" />
     <QtMoc Include="src\webserver.h" />
   </ItemGroup>

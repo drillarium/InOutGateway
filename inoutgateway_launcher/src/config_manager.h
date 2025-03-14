@@ -12,6 +12,7 @@ public:
 
   QString getIface() const { return iface_; }
   int getPort() const { return port_; }
+  QString getEnginesPath() const { return enginesPath_; }
 
 private:
   ConfigManager(); // Private constructor
@@ -20,6 +21,7 @@ private:
 
   QString iface_ = "0.0.0.0";
   int port_ = 5533;
+  QString enginesPath_ = "./engines";
 };
 
 #endif // CONFIGMANAGER_H

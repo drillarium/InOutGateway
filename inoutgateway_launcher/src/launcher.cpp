@@ -5,7 +5,12 @@
 #include <QTimer>
 #include <QProcess>
 #include <QStorageInfo>
+#include <QStandardItemModel>
 #include "launcher.h"
+#include "jsoneditor.h"
+#include "config_manager.h"
+#include "processmanager.h"
+#include "process.h"
 
 Launcher::Launcher(QWidget *_parent)
 :QMainWindow(_parent)
@@ -38,7 +43,7 @@ Launcher::Launcher(QWidget *_parent)
   trayIcon_->show();
 
   // Timer to update CPU usage
-  QTimer *CPUTimer = new QTimer(this);
+  /* QTimer* CPUTimer = new QTimer(this);
   connect(CPUTimer, &QTimer::timeout, this, &Launcher::updateCPUUsage);
   CPUTimer->start(500);
 
@@ -48,11 +53,27 @@ Launcher::Launcher(QWidget *_parent)
 
   QTimer *GPUTimer = new QTimer(this);
   connect(GPUTimer, &QTimer::timeout, this, &Launcher::updateGPUUsage);
-  GPUTimer->start(500);
+  GPUTimer->start(500); */
 
   QTimer *diskTimer = new QTimer(this);
   connect(diskTimer, &QTimer::timeout, this, &Launcher::updateDiskUsage);
   diskTimer->start(500);
+
+  refreshEngines();
+
+  ProcessManager &pm = ProcessManager::instance();
+  connect(&pm, &ProcessManager::engineRunning, this, &Launcher::engineRunning);
+  connect(&pm, &ProcessManager::engineStopped, this, &Launcher::engineStopped);
+
+  // Create the model with 2 columns
+  QStandardItemModel *model = new QStandardItemModel();
+  model->setColumnCount(2);
+  model->setHeaderData(0, Qt::Horizontal, "Process ID");
+  model->setHeaderData(1, Qt::Horizontal, "Process Name");
+  ui.processesTableView->setModel(model);
+
+  // Connect selection change signal to update button state
+  connect(ui.processesTableView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &Launcher::updateEndTaskButtonStatus);
 }
 
 Launcher::~Launcher()
@@ -267,4 +288,92 @@ void Launcher::updateDiskUsage()
     text += QString("%1 - %2% available ").arg(it.key()).arg(QString::number(it.value(), 'f', 2));
   }
   ui.diskUsageLabel->setText(text);
+}
+
+void Launcher::executeTask()
+{
+  QString engine = ui.taskComboBox->currentText();
+  QString config= ProcessManager::instance().configFile(engine);
+
+  JSONEditor dialog;
+  dialog.setJson(config);
+  if(dialog.exec() == QDialog::Accepted)
+  {
+    QString json = dialog.getJson();
+    ProcessManager::instance().loadEngine(engine, json);
+  }
+}
+
+void Launcher::endTask()
+{
+  QModelIndexList selectedRows = ui.processesTableView->selectionModel()->selectedRows();
+  if(selectedRows.isEmpty()) return;
+
+  int row = selectedRows.first().row();
+
+  // Confirmation dialog
+  QMessageBox::StandardButton reply = QMessageBox::question(ui.processesTableView, "Confirm Deletion", "Are you sure you want to remove this process?", QMessageBox::Yes | QMessageBox::No);
+  if(reply != QMessageBox::Yes) return;
+
+  QStandardItemModel* model = static_cast<QStandardItemModel*>(ui.processesTableView->model());
+  int id = model->data(model->index(row, 0)).toInt();
+
+  ProcessManager::instance().unloadEngine(id);
+}
+
+void Launcher::refreshEngines()
+{
+  ui.taskComboBox->clear();
+  QStringList engines = ProcessManager::instance().availableEngines();
+  ui.taskComboBox->addItems(engines);
+}
+
+void Launcher::engineRunning(int _id)
+{
+  QString processName = ProcessManager::instance().processName(_id);
+
+  // new item in processes list
+  QStandardItemModel *model = static_cast<QStandardItemModel *>(ui.processesTableView->model());
+  QList<QStandardItem*> rowItems;
+  rowItems.append(new QStandardItem(QString::number(_id)));
+  rowItems.append(new QStandardItem(processName));
+  model->appendRow(rowItems);
+
+  // new tab to monitor
+  ProcessWidget *pw = new ProcessWidget(_id, this);
+  ui.tabWidget->addTab(pw, processName);
+}
+
+void Launcher::engineStopped(int _id)
+{
+  // remove from processes list
+  QStandardItemModel* model = static_cast<QStandardItemModel*>(ui.processesTableView->model());
+  for(int row = 0; row < model->rowCount(); row++)
+  {
+    int id = model->data(model->index(row, 0)).toInt();
+    if(id == _id)
+    {
+      model->removeRow(row);
+      break;
+    }
+  }
+
+  // remove tab
+  for(int tab = 1; tab < ui.tabWidget->count(); tab++)
+  {
+    ProcessWidget *pw = static_cast<ProcessWidget *>(ui.tabWidget->widget(tab));
+    if(pw->id() == _id)
+    {
+      ui.tabWidget->widget(tab)->deleteLater();
+      ui.tabWidget->removeTab(tab);
+      break;
+    }
+  }
+
+  updateEndTaskButtonStatus();
+}
+
+void Launcher::updateEndTaskButtonStatus()
+{
+  ui.endTaskButton->setEnabled(!ui.processesTableView->selectionModel()->selectedRows().isEmpty());
 }

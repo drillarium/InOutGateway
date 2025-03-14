@@ -6,8 +6,8 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 
-WebServer::WebServer(QObject *parent)
-:QTcpServer(parent)
+WebServer::WebServer(QObject *_parent)
+:QTcpServer(_parent)
 {
 
 }

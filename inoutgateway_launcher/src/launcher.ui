@@ -26,7 +26,7 @@
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,1">
         <item>
-         <widget class="QWidget" name="verticalWidget" native="true">
+         <widget class="QWidget" name="leftVerticalWidget" native="true">
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
             <widget class="QWidget" name="gridWidget" native="true">
@@ -125,12 +125,21 @@
          </widget>
         </item>
         <item>
-         <widget class="QWidget" name="verticalWidget" native="true">
+         <widget class="QWidget" name="rightVerticalWidget" native="true">
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
             <widget class="QTableView" name="processesTableView">
              <property name="editTriggers">
               <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+             </property>
+             <property name="tabKeyNavigation">
+              <bool>false</bool>
+             </property>
+             <property name="showDropIndicator" stdset="0">
+              <bool>false</bool>
+             </property>
+             <property name="dragDropOverwriteMode">
+              <bool>false</bool>
              </property>
              <property name="selectionMode">
               <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
@@ -138,6 +147,9 @@
              <property name="selectionBehavior">
               <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
              </property>
+             <attribute name="verticalHeaderVisible">
+              <bool>false</bool>
+             </attribute>
             </widget>
            </item>
            <item>
@@ -155,6 +167,13 @@
                  </size>
                 </property>
                </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="refreshButton">
+                <property name="text">
+                 <string>Refresh</string>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="QComboBox" name="taskComboBox"/>
@@ -181,11 +200,6 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_2">
-       <attribute name="title">
-        <string>Tab 2</string>
-       </attribute>
-      </widget>
      </widget>
     </item>
    </layout>
@@ -195,5 +209,59 @@
  <resources>
   <include location="launcher.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>executeTaskButton</sender>
+   <signal>clicked()</signal>
+   <receiver>LauncherClass</receiver>
+   <slot>executeTask()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>806</x>
+     <y>733</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>487</x>
+     <y>392</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>endTaskButton</sender>
+   <signal>clicked()</signal>
+   <receiver>LauncherClass</receiver>
+   <slot>endTask()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>898</x>
+     <y>733</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>487</x>
+     <y>392</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>refreshButton</sender>
+   <signal>clicked()</signal>
+   <receiver>LauncherClass</receiver>
+   <slot>refreshEngines()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>646</x>
+     <y>733</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>487</x>
+     <y>392</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>executeTask()</slot>
+  <slot>endTask()</slot>
+  <slot>refreshEngines()</slot>
+ </slots>
 </ui>

@@ -30,6 +30,7 @@ bool ConfigManager::loadConfig()
     QJsonObject defaultConfig;
     defaultConfig["iface"] = iface_;
     defaultConfig["port"] = port_;
+    defaultConfig["enginesPath"] = enginesPath_;
 
     QJsonDocument jsonDoc(defaultConfig);
 
@@ -62,8 +63,9 @@ bool ConfigManager::loadConfig()
   QJsonObject jsonObj = doc.object();
 
   // Read values
-  iface_ = jsonObj.value("iface").toString("127.0.0.1"); // Default: localhost
-  port_ = jsonObj.value("port").toInt(8080);             // Default: 8080
+  iface_ = jsonObj.value("iface").toString(iface_);
+  port_ = jsonObj.value("port").toInt(port_);
+  enginesPath_ = jsonObj.value("enginesPath").toString(enginesPath_);
 
   return true;
 }

@@ -3,7 +3,7 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 
-class WebServer  : public QTcpServer
+class WebServer : public QTcpServer
 {
   Q_OBJECT
 
@@ -15,7 +15,7 @@ protected:
   void incomingConnection(qintptr _socketDescriptor) override;
 
 private:
-  explicit WebServer(QObject* parent = nullptr);
+  explicit WebServer(QObject *_parent = nullptr);
   WebServer(const WebServer&) = delete;
   WebServer& operator=(const WebServer&) = delete;
 
